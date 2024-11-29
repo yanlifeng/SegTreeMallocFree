@@ -1,0 +1,16 @@
+CC:= mpicc
+FC:= mpif90
+AR:= ar rcs
+
+CFLAGS:= -I./include
+#CFLAGS:= -w -g -O0 
+CFLAGS+:= -w -g -O2 -Duse_std_malloc
+#FFLAGS:= -I./include
+
+all: lib/libstdMallocFree.a
+
+lib/libstdMallocFree.a: build/stdMallocFree.o
+	$(AR) $@ $^
+
+build/stdMallocFree.o: src/ylfMallocFree.c
+	$(CC) $(CFLAGS) -c $^ -o $@
